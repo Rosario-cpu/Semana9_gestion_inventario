@@ -1,0 +1,3 @@
+102,Videojuego,8,950.7
+106,Impresora,12,900.56
+259,MemoriaUSB,46,6258.24

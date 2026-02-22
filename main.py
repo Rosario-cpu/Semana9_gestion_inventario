@@ -1,58 +1,44 @@
-# Importamos las clases necesarias
 from producto import Producto
 from inventario import Inventario
 
 
-def mostrar_menu():
-    # Creamos una instancia del inventario
-    mi_inventario = Inventario()
+def menu():
+    inv = Inventario()
 
     while True:
-        print("\n--- SISTEMA DE GESTIÓN DE INVENTARIO ---")
-        print("1. Añadir Producto")
-        print("2. Eliminar Producto")
-        print("3. Actualizar Producto")
-        print("4. Buscar Producto por nombre")
-        print("5. Ver Inventario")
-        print("6. Salir")
-
+        print("\n--- MENÚ DE GESTIÓN DE INVENTARIO ---")
+        print("1. Añadir\n2. Eliminar\n3. Actualizar\n4. Mostrar Todo\n5. Salir")
         opcion = input("Seleccione una opción: ")
 
-        if opcion == "1":
-            id_p = input("ID: ")
-            nom = input("Nombre: ")
-            cant = int(input("Cantidad: "))
-            prec = float(input("Precio: "))
-            mi_inventario.añadir_producto(Producto(id_p, nom, cant, prec))
+        try:
+            if opcion == "1":
+                id_p = input("ID: ")
+                nom = input("Nombre: ")
+                cant = int(input("Cantidad: "))
+                prec = float(input("Precio: "))
+                inv.añadir_producto(Producto(id_p, nom, cant, prec))
 
-        elif opcion == "2":
-            id_p = input("ID a eliminar: ")
-            mi_inventario.eliminar_producto(id_p)
+            elif opcion == "2":
+                id_p = input("ID a eliminar: ")
+                inv.eliminar_producto(id_p)
 
-        elif opcion == "3":
-            id_p = input("ID del producto: ")
-            c = input("Nueva cantidad (dejar vacío para no cambiar): ")
-            p = input("Nuevo precio (dejar vacío para no cambiar): ")
-            mi_inventario.actualizar_producto(
-                id_p,
-                int(c) if c else None,
-                float(p) if p else None
-            )
+            elif opcion == "3":
+                id_p = input("ID del producto: ")
+                c_in = input("Nueva cantidad (vacío para omitir): ")
+                p_in = input("Nuevo precio (vacío para omitir): ")
+                cant = int(c_in) if c_in else None
+                prec = float(p_in) if p_in else None
+                inv.actualizar_producto(id_p, cant, prec)
 
-        elif opcion == "4":
-            nom = input("Nombre a buscar: ")
-            resultados = mi_inventario.buscar_por_nombre(nom)
-            for r in resultados: print(r)
+            elif opcion == "4":
+                inv.mostrar_todos()
 
-        elif opcion == "5":
-            mi_inventario.mostrar_todos()
-
-        elif opcion == "6":
-            print("Saliendo...")
-            break
-        else:
-            print("Opción no válida.")
+            elif opcion == "5":
+                print("¡Hasta luego!")
+                break
+        except ValueError:
+            print("Error: Ingrese valores numéricos válidos en cantidad y precio.")
 
 
 if __name__ == "__main__":
-    mostrar_menu()
+    menu()
